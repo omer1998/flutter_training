@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
+import 'package:flutter_basic_training/1_whatsAppScreen/SendingMessageComponent.dart';
 import 'package:flutter_basic_training/1_whatsAppScreen/messageModel.dart';
 
 class WhatsAppScreen extends StatelessWidget {
@@ -69,7 +70,7 @@ class WhatsAppScreen extends StatelessWidget {
       ),
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 17, vertical: 56),
+        padding: EdgeInsets.symmetric(horizontal: 17),
         decoration: BoxDecoration(
           color: Color(0xFF181818),
           image: DecorationImage(
@@ -78,21 +79,36 @@ class WhatsAppScreen extends StatelessWidget {
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          spacing: 16,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MessageComponent(message: Message.myHelloMessage),
-            MessageComponent(message: Message.msg2),
-            MessageComponent(message: Message.msg3),
-            MessageComponent(message: Message.msg4),
-            MessageComponent(message: Message.msg4),
-            MessageComponent(message: Message.msg4),
+            Expanded(child: MessagesSection(messages: Message.messages)),
+            SendingMessageComponent()
           ],
-        ),
+        )
       ),
     );
   }
 }
+
+class MessagesSection extends StatelessWidget {
+  List<Message> messages;
+  MessagesSection({super.key, required this.messages});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      scrollDirection: Axis.vertical,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        spacing: 16,
+        children: messages.map((message) => MessageComponent(message: message)).toList()
+      ),
+    );
+  }
+}
+
 
 class MessageComponent extends StatelessWidget {
   Message message;
@@ -147,7 +163,3 @@ class MessageComponent extends StatelessWidget {
   }
 }
 
-@Preview(name: 'My Sample Text')
-Widget mySampleText() {
-  return MessageComponent(message: Message.myHelloMessage);
-}
