@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SendingMessageComponent extends StatelessWidget {
-  const SendingMessageComponent({super.key});
+  ValueChanged<String> onMessageTextChanged;
+  Function onSend;
+  SendingMessageComponent({super.key, required this.onMessageTextChanged, required this.onSend});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,14 @@ class SendingMessageComponent extends StatelessWidget {
       height: 49,
       child: Row(
         children: [
-          Expanded(child: MessageField(onSend: (message) {})),
+          Expanded(child: MessageField(
+              onChanged: (message) {
+                onMessageTextChanged(message);
+              },
+              onSend: () {
+                onSend();
+              }
+          )),
           SizedBox(width: 8,),
           Container(
             width: 49,
@@ -19,7 +28,7 @@ class SendingMessageComponent extends StatelessWidget {
               color: Color(0xFF168C4B),
               shape: BoxShape.circle,
             ),
-            child: IconButton(onPressed: () {}, icon: Image.asset("./assets/images/Mic.png"))
+            child: IconButton(onPressed: (){}, icon: Image.asset("./assets/images/Mic.png"))
           )
         ],
       ),
@@ -28,15 +37,21 @@ class SendingMessageComponent extends StatelessWidget {
 }
 
 class MessageField extends StatelessWidget {
-  Function(String message) onSend;
+  ValueChanged<String> onChanged;
+  Function onSend;
 
-  MessageField({super.key, required this.onSend});
+  MessageField({super.key, required this.onChanged, required this.onSend});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       textAlignVertical: TextAlignVertical.center,
-
+      onChanged: (message) => onChanged(message),
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        color: Color(0xFFFFFFFF),
+      ),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
         hint: Text(
@@ -66,7 +81,9 @@ class MessageField extends StatelessWidget {
         suffixIcon: Padding(
           padding: const EdgeInsets.only(right: 4.0),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              onSend();
+            },
             icon: Image.asset(
               width: 24,
               height: 24,

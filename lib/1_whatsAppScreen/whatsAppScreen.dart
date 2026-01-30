@@ -82,7 +82,14 @@ class WhatsAppScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(child: MessagesSection(messages: Message.messages)),
-            SendingMessageComponent()
+            SendingMessageComponent(
+              onMessageTextChanged: (String value) {
+                print("==> $value");
+              },
+              onSend: (){
+                print("===> sending message now");
+              },
+            )
           ],
         )
       ),
