@@ -210,9 +210,12 @@ class StoriesSection extends StatelessWidget {
               child: Text("create a story item"));
         }
         var currentStory = stories[index];
-        return StoryItem(
-          profileImage: currentStory.profileImgUrl,
-          storyImage: currentStory.storiesImgUrl[0],
+        return Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: StoryItem(
+            profileImage: currentStory.profileImgUrl,
+            storyImage: currentStory.storiesImgUrl[0],
+          ),
         );
       },
     );
