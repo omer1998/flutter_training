@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basic_training/facebook/core/ColorManager.dart';
 import 'package:flutter_basic_training/facebook/customWidgets/ClickableAssetIcon.dart';
 import 'package:flutter_basic_training/facebook/model/StoryModel.dart';
 import 'package:flutter_basic_training/generated/assets.dart';
@@ -133,20 +134,23 @@ class HomeTabContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0),
-            child: ShareContentSection(
-              onTextChanged: (text) {
-                print("==> changed text: $text");
-              },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              child: ShareContentSection(
+                onTextChanged: (text) {
+                  print("==> changed text: $text");
+                },
+              ),
             ),
-          ),
-          Container(
-              height: 120,
-              child: StoriesSection(stories: StoryModel.example)),
-        ],
+            Container(
+              height: 178,
+              child: StoriesSection(stories: StoryModel.example),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -204,10 +208,10 @@ class StoriesSection extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: stories.length,
       itemBuilder: (_, index) {
-        if (index == 0){
-          return Container(
-              color: Colors.red,
-              child: Text("create a story item"));
+        if (index == 0) {
+          return CreateStoryItem(
+            profileImgUrl: StoryModel.example[0].profileImgUrl,
+          );
         }
         var currentStory = stories[index];
         return Padding(
@@ -218,6 +222,70 @@ class StoriesSection extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class CreateStoryItem extends StatelessWidget {
+  CreateStoryItem({super.key, required this.profileImgUrl});
+
+  String profileImgUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.only(
+                topRight: Radius.circular(15),
+                topLeft: Radius.circular(15),
+              ),
+              child: Image.network(
+                profileImgUrl,
+                width: 112,
+                height: 124,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: -10,
+              left: 0,
+              right: 0,
+              child: Container(
+                alignment: Alignment.center,
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: ColorManager.blue,
+                  border: BoxBorder.all(color: Colors.white, width: 2),
+                ),
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {},
+                    color: Colors.white,
+                    icon: Icon(Icons.add),
+                    iconSize: 10,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text(
+            "Create a\n Story",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
     );
   }
 }
