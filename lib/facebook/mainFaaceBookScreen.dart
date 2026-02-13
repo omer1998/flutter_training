@@ -5,8 +5,13 @@ import 'package:flutter_basic_training/facebook/model/StoryModel.dart';
 import 'package:flutter_basic_training/generated/assets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'customWidgets/postCard.dart';
+import 'customWidgets/storyItem.dart';
+
 class MainFaceBookScreen extends StatefulWidget {
   const MainFaceBookScreen({super.key});
+
+  static String mainFacebookScreenRoute = "/facebook";
 
   @override
   State<MainFaceBookScreen> createState() => _MainFaceBookScreenState();
@@ -22,7 +27,14 @@ class _MainFaceBookScreenState extends State<MainFaceBookScreen> {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Facebook"),
+          title: Text(
+            "Facebook",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              color: ColorManager.blue,
+            ),
+          ),
           actions: [
             ClickableAssetIcon(
               assetPath: Assets.iconsIcPlus,
@@ -132,25 +144,30 @@ class HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 18.0),
-              child: ShareContentSection(
-                onTextChanged: (text) {
-                  print("==> changed text: $text");
-                },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 18.0),
+            child: ShareContentSection(
+              onTextChanged: (text) {
+                print("==> changed text: $text");
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            height: 210,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(width: 2.0, color: Color(0xFF898F9C)),
+                top: BorderSide(width: 1.0, color: Color(0xFF898F9C)),
               ),
             ),
-            Container(
-              height: 178,
-              child: StoriesSection(stories: StoryModel.example),
-            ),
-          ],
-        ),
+            child: StoriesSection(stories: StoryModel.example),
+          ),
+          PostCard(),
+        ],
       ),
     );
   }
@@ -222,109 +239,6 @@ class StoriesSection extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class CreateStoryItem extends StatelessWidget {
-  CreateStoryItem({super.key, required this.profileImgUrl});
-
-  String profileImgUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadiusGeometry.only(
-                topRight: Radius.circular(15),
-                topLeft: Radius.circular(15),
-              ),
-              child: Image.network(
-                profileImgUrl,
-                width: 112,
-                height: 124,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              bottom: -10,
-              left: 0,
-              right: 0,
-              child: Container(
-                alignment: Alignment.center,
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: ColorManager.blue,
-                  border: BoxBorder.all(color: Colors.white, width: 2),
-                ),
-                child: Center(
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {},
-                    color: Colors.white,
-                    icon: Icon(Icons.add),
-                    iconSize: 10,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Text(
-            "Create a\n Story",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class StoryItem extends StatelessWidget {
-  StoryItem({required this.profileImage, required this.storyImage, super.key});
-
-  String storyImage;
-  String profileImage;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(15),
-          child: Image.network(
-            storyImage,
-            width: 112,
-            height: 180,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.network(
-                profileImage,
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
