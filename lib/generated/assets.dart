@@ -61,9 +61,11 @@ class Assets {
   static const String iconsIcBookmark = 'assets/icons/ic-bookmark.svg';
   static const String iconsIcComments = 'assets/icons/ic-comments.svg';
   static const String iconsIcEarth = 'assets/icons/ic-earth.svg';
+  static const String iconsIcFacebookLogo = 'assets/icons/ic-facebook-logo.svg';
   static const String iconsIcHome = 'assets/icons/ic-home.svg';
   static const String iconsIcLove = 'assets/icons/ic-love.svg';
   static const String iconsIcMessanger = 'assets/icons/ic-messanger.svg';
+  static const String iconsIcMetaLogo = 'assets/icons/ic-meta-logo.svg';
   static const String iconsIcMoreHorizontal = 'assets/icons/ic-more-horizontal.svg';
   static const String iconsIcNotification = 'assets/icons/ic-notification.svg';
   static const String iconsIcPlus = 'assets/icons/ic-plus.svg';
