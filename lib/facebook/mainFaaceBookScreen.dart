@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basic_training/facebook/core/ColorManager.dart';
 import 'package:flutter_basic_training/facebook/customWidgets/ClickableAssetIcon.dart';
 import 'package:flutter_basic_training/facebook/model/StoryModel.dart';
+import 'package:flutter_basic_training/facebook/model/post.dart';
+import 'package:flutter_basic_training/facebook/model/user.dart';
 import 'package:flutter_basic_training/generated/assets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -111,8 +113,8 @@ class _MainFaceBookScreenState extends State<MainFaceBookScreen> {
               Tab(
                 icon: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    Assets.imagesProfileImage,
+                  child: Image.network(
+                    User.currentUser.profileImageUrl,
                     width: 31,
                     height: 31,
                     fit: BoxFit.cover,
@@ -145,6 +147,7 @@ class HomeTabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: ScrollPhysics(),
       child: Column(
         children: [
           Padding(
@@ -166,7 +169,13 @@ class HomeTabContent extends StatelessWidget {
             ),
             child: StoriesSection(stories: StoryModel.example),
           ),
-          PostCard(),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: Post.posts.length,
+              itemBuilder: (_, index){
+            return PostCard(post: Post.posts[index]);
+          }),
         ],
       ),
     );
@@ -184,8 +193,8 @@ class ShareContentSection extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
-          child: Image.asset(
-            Assets.imagesProfileImage,
+          child: Image.network(
+            User.currentUser.profileImageUrl,
             width: 43,
             height: 43,
             fit: BoxFit.cover,
@@ -227,7 +236,7 @@ class StoriesSection extends StatelessWidget {
       itemBuilder: (_, index) {
         if (index == 0) {
           return CreateStoryItem(
-            profileImgUrl: StoryModel.example[0].profileImgUrl,
+            profileImgUrl: User.currentUser.profileImageUrl,
           );
         }
         var currentStory = stories[index];
