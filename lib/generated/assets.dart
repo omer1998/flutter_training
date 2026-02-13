@@ -60,6 +60,7 @@ class Assets {
   static const String iconsIcAddImage = 'assets/icons/ic-add-image.svg';
   static const String iconsIcBookmark = 'assets/icons/ic-bookmark.svg';
   static const String iconsIcComments = 'assets/icons/ic-comments.svg';
+  static const String iconsIcEarth = 'assets/icons/ic-earth.svg';
   static const String iconsIcHome = 'assets/icons/ic-home.svg';
   static const String iconsIcLove = 'assets/icons/ic-love.svg';
   static const String iconsIcMessanger = 'assets/icons/ic-messanger.svg';
