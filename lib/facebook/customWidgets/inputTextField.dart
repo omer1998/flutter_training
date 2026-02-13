@@ -4,6 +4,7 @@ class FaceBookInputField extends StatefulWidget {
   FaceBookInputField({
     required this.hint,
     required this.obscureText,
+    required this.onChange,
     this.validator,
     super.key,
   });
@@ -11,6 +12,7 @@ class FaceBookInputField extends StatefulWidget {
   String hint;
   String? Function(String?)? validator;
   bool? obscureText;
+  Function(String value) onChange;
 
   @override
   State<FaceBookInputField> createState() => _FaceBookInputFieldState();
@@ -28,6 +30,7 @@ class _FaceBookInputFieldState extends State<FaceBookInputField> {
   Widget build(BuildContext context) {
 
     return TextFormField(
+      onChanged: widget.onChange,
       validator: widget.validator,
       obscureText: isVisible,
       decoration: InputDecoration(
