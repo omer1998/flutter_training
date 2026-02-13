@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FaceBookInputField extends StatelessWidget {
+class FaceBookInputField extends StatefulWidget {
   FaceBookInputField({
     required this.hint,
     required this.obscureText,
@@ -10,21 +10,40 @@ class FaceBookInputField extends StatelessWidget {
 
   String hint;
   String? Function(String?)? validator;
-  bool obscureText;
+  bool? obscureText;
 
   @override
+  State<FaceBookInputField> createState() => _FaceBookInputFieldState();
+}
+
+class _FaceBookInputFieldState extends State<FaceBookInputField> {
+  late bool isVisible;
+
+  @override
+  void initState() {
+    isVisible = widget.obscureText ?? false;
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return TextFormField(
-      obscureText: obscureText,
+      validator: widget.validator,
+      obscureText: isVisible,
       decoration: InputDecoration(
-        suffixIcon: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.panorama_fish_eye),
-        ),
+        suffixIcon: widget.obscureText ?? false
+            ? IconButton(
+                onPressed: () {
+                  isVisible = !isVisible;
+                  setState(() {});
+                },
+                icon: Icon(isVisible ? Icons.visibility : Icons.visibility_off),
+              )
+            : SizedBox(),
         filled: true,
         fillColor: Color(0x78D6DFF1),
         hint: Text(
-          hint,
+          widget.hint,
           style: TextStyle(
             fontSize: 16,
             color: Color(0xFF898F9C),
