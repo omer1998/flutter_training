@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../generated/assets.dart';
 import '../model/StoryModel.dart';
+import '../model/post.dart';
 import 'ClickableAssetIcon.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+  PostCard({required this.post, super.key});
+  Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class PostCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.network(
-                      StoryModel.example[0].profileImgUrl,
+                      post.profileImageUrl,
                       width: 53,
                       height: 53,
                     ),
@@ -37,7 +39,7 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "account name",
+                          post.userName,
                           style: TextStyle(
                             fontSize: 16,
                             color: Color(0xFF242527),
@@ -46,7 +48,7 @@ class PostCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "8h .",
+                              "${post.publishedAt} .",
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF898F9C),
@@ -84,7 +86,7 @@ class PostCard extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 16),
               padding: const EdgeInsets.all(8.0),
               child: Image.network(
-                StoryModel.example[0].profileImgUrl,
+                post.postImageUrl,
                 height: 270,
               ),
             ),
