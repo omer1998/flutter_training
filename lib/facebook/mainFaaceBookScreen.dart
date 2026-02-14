@@ -28,7 +28,9 @@ class _MainFaceBookScreenState extends State<MainFaceBookScreen> {
       initialIndex: selectedTab,
       length: 6,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Text(
             "Facebook",
             style: TextStyle(
