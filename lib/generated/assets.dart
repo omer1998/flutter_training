@@ -76,7 +76,9 @@ class Assets {
   static const String iconsIcStore = 'assets/icons/ic-store.svg';
   static const String imagesBackImage = 'assets/images/back_image.png';
   static const String imagesBackgroundImage = 'assets/images/background_image.png';
+  static const String imagesBrandingFacebook = 'assets/images/branding_facebook.png';
   static const String imagesCamera = 'assets/images/Camera.png';
+  static const String imagesFacebookLogo = 'assets/images/facebook_logo.png';
   static const String imagesIcPlus = 'assets/images/ic-plus.png';
   static const String imagesMic = 'assets/images/Mic.png';
   static const String imagesMoreVertical = 'assets/images/More-vertical.png';

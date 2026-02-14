@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widget_previews.dart';
 import 'package:flutter_basic_training/1_whatsAppScreen/whatsAppScreen.dart';
 
+import 'facebook/loginScreen.dart';
+import 'facebook/mainFaaceBookScreen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,6 +19,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: (RouteSettings setting){
+        if(setting.name == MainFaceBookScreen.mainFacebookScreenRoute){
+          return MaterialPageRoute(builder: (_)=> MainFaceBookScreen());
+        }
+        return null;
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -32,10 +41,11 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+       /// colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: "inter"
 
       ),
-      home: WhatsAppScreen(),
+      home: LoginScreen(),
     );
   }
 }
