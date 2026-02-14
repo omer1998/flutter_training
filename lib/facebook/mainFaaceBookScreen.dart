@@ -151,7 +151,7 @@ class HomeTabContent extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 18.0),
+            padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 15),
             child: ShareContentSection(
               onTextChanged: (text) {
                 print("==> changed text: $text");
@@ -231,6 +231,7 @@ class StoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 15),
       scrollDirection: Axis.horizontal,
       itemCount: stories.length,
       itemBuilder: (_, index) {
